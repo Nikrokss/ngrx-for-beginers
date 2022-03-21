@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {Store} from "@ngrx/store";
+import {increase, decrease, clear, countSelector} from "./reducers/counter";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -6,26 +9,35 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  counter = 0;
   updatedAt?: number;
 
+  // обзервбл, получаем подписчик на хранилище
+  count$ = this.store.select(countSelector);
+  cannotDecrease$ = this.count$.pipe(map(count => count <= 0));
+
+  constructor(private store: Store) {}
+
   //геттер это свойство при обращении к которому будет вызывать соответствующие функции
-  get cannotDecrease(): boolean {
-    return this.counter <= 0;
-  }
+  // get cannotDecrease(): boolean {
+  //   // return this.counter <= 0;
+  //   return false;
+  // }
 
   increase(): void {
     this.updatedAt = Date.now();
-    this.counter++;
+    // this.counter++;
+    this.store.dispatch(increase());
   }
 
   decrease(): void {
     this.updatedAt = Date.now();
-    this.counter--;
+    // this.counter--;
+    this.store.dispatch(decrease());
   }
 
   clear(): void {
     this.updatedAt = Date.now();
-    this.counter = 0;
+    // this.counter = 0;
+    this.store.dispatch(clear());
   }
 }

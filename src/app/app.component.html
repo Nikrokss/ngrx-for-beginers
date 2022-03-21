@@ -1,6 +1,6 @@
 <button class="fz-60 p-50 m-20" (click)="increase()">+1</button>
-<button class="fz-60 p-50 m-20" (click)="decrease()" [disabled]="cannotDecrease">-1</button>
-<button class="fz-60 p-50 m-20" (click)="clear()" [disabled]="cannotDecrease">=0</button>
+<button class="fz-60 p-50 m-20" (click)="decrease()" [disabled]="cannotDecrease$ | async">-1</button>
+<button class="fz-60 p-50 m-20" (click)="clear()" [disabled]="cannotDecrease$ | async">=0</button>
 
-<p class="fz-60">Счетчик = {{counter}}</p>
+<p class="fz-60">Счетчик = {{count$ | async}}</p>
 <p *ngIf="updatedAt" class="fz-60">Обновлялось {{updatedAt | date: "HH:mm:ss dd/MM/yyyy"}}</p>
