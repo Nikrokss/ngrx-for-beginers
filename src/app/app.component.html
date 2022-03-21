@@ -3,4 +3,4 @@
 <button class="fz-60 p-50 m-20" (click)="clear()" [disabled]="cannotDecrease$ | async">=0</button>
 
 <p class="fz-60">Счетчик = {{count$ | async}}</p>
-<p *ngIf="updatedAt" class="fz-60">Обновлялось {{updatedAt | date: "HH:mm:ss dd/MM/yyyy"}}</p>
+<p *ngIf="updatedAt$ | async" class="fz-60">Обновлялось {{updatedAt$ | async | date: "HH:mm:ss dd/MM/yyyy"}}</p>
